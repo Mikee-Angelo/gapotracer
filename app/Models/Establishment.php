@@ -96,7 +96,9 @@ class Establishment extends Model
         'staff_name' => 'required',
         'address' => 'required',
         'contact_no' => 'required',
-        'type' => 'required'
+        'type' => 'required',
+        'lat' => 'required',
+        'lng' => 'required'
     ];
 
     

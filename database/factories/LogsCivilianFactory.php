@@ -22,9 +22,7 @@ class LogsCivilianFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => $this->faker->randomDigitNotNull,
-        'host_id' => $this->faker->randomDigitNotNull,
-        'created_at' => $this->faker->date('Y-m-d H:i:s'),
+            'created_at' => $this->faker->date('Y-m-d H:i:s'),
         'updated_at' => $this->faker->date('Y-m-d H:i:s')
         ];
     }

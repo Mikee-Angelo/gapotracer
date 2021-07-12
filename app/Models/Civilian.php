@@ -5,7 +5,8 @@ namespace App\Models;
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+use Laravel\Passport\HasApiTokens;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 /**
  * @SWG\Definition(
  *      definition="Civilian",
@@ -55,12 +56,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *      )
  * )
  */
-class Civilian extends Model
+class Civilian extends Authenticatable
 {
     use SoftDeletes;
 
-    use HasFactory;
-
+    use HasFactory, HasApiTokens;
     public $table = 'civilians';
     
 
@@ -75,6 +75,8 @@ class Civilian extends Model
         'gender',
         'address',
         'guid',
+        'full_name',
+        'token',
     ];
 
     /**
@@ -89,6 +91,7 @@ class Civilian extends Model
         'age' => 'integer',
         'gender' => 'string',
         'address' => 'string',
+        'token' => 'string',
     ];
 
     /**

@@ -18,6 +18,11 @@ Route::post('/register',  [App\Http\Controllers\API\AuthController::class, 'regi
 Route::post('/login',  [App\Http\Controllers\API\AuthController::class, 'login']);
 
 Route::middleware(['auth:api'])->group(function(){ 
+    Route::get('stats', [App\Http\Controllers\HomeController::class, 'stats']);
+    Route::get('status', [App\Http\Controllers\API\AuthController::class, 'status']);
+    Route::resource('logs_civilians', LogsCivilianAPIController::class);
+    Route::resource('logs_establishments', LogsEstablishmentAPIController::class);
+    Route::resource('logs_vehicles', LogsVehicleAPIController::class);
 });
 
 

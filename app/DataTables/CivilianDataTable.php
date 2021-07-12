@@ -45,8 +45,8 @@ class CivilianDataTable extends DataTable
             ->addAction(['width' => '120px', 'printable' => false]) 
             ->parameters([
                 'dom'       => 'Bfrtip',
-                'stateSave' => true,
-                'order'     => [[0, 'desc']],
+                'stateSave' => false,
+                'order'     => [[7, 'desc']],
                 'buttons'   => [
                     ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
                     ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
@@ -64,21 +64,25 @@ class CivilianDataTable extends DataTable
      */
     protected function getColumns()
     {
+        $status = ['Normal', 'Suspected', 'Negative', 'Positive', 'Recovered', 'Death'];
+        
         return [
             'first_name',
-            'last_name',
+            'last_name', 
             'phone',
             'age',
             'gender',
-            'address'
+            'address',
+            'status'=> new \Yajra\DataTables\Html\Column([
+                'name' => 'status',
+                'data' => 'status',
+                'title' =>  'Status'
+            ]), 
+            'created_at'
         ];
     }
 
-    /**
-     * Get filename for export.
-     *
-     * @return string
-     */
+
     protected function filename()
     {
         return 'civilians_datatable_' . time();

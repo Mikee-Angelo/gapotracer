@@ -31,16 +31,90 @@ class HomeController extends Controller
         $civilian = Civilian::where('deleted_at', null);
         $vehicle = Vehicles::where('deleted_at', null)->get();
 
+        $suspected = Civilian::where([
+            ['deleted_at', '=', null],
+            ['status', '=',  1]
+            ])->get();
+
+        $confirmed = Civilian::where([
+            ['deleted_at', '=', null],
+            ['status', '>',  2]
+            ])->get();
+            
+        $active = Civilian::where([
+            ['deleted_at', '=', null],
+            ['status', '=',  3]
+            ])->get();
+        
+        $negative = Civilian::where([
+            ['deleted_at', '=', null],
+            ['status', '=',  2]
+            ])->get();
+        
+        $recovered = Civilian::where([
+            ['deleted_at', '=', null],
+            ['status', '=',  4]
+            ])->get();   
+       
+        $death = Civilian::where([
+            ['deleted_at', '=', null],
+            ['status', '=',  5]
+            ])->get();   
+        
         return view('home', [
             'establishment' => $establishment->get(),
             'civilian' => $civilian->get(), 
             'vehicle' => $vehicle, 
-            'confirmed' => $civilian->where('status', '>', 2)->count(),
-            'suspected' => $civilian->where('status', 1)->count(),
-            'negative' => $civilian->where('status', 2)->count(),
-            'active' => $civilian->where('status', 3)->count(),
-            'recovered' => $civilian->where('status', 4)->count(),
-            'death' => $civilian->where('status', 5)->count(),
+            'confirmed' => $confirmed,
+            'suspected' => $suspected,
+            'negative' => $negative,
+            'active' => $active ,
+            'recovered' => $recovered,
+            'death' => $death,
+        ]);
+    }
+
+    public function stats(){ 
+
+        $suspected = Civilian::where([
+            ['deleted_at', '=', null],
+            ['status', '=',  1]
+            ])->count();
+
+        $confirmed = Civilian::where([
+            ['deleted_at', '=', null],
+            ['status', '>',  2]
+            ])->count();
+            
+        $active = Civilian::where([
+            ['deleted_at', '=', null],
+            ['status', '=',  3]
+            ])->count();
+        
+        $negative = Civilian::where([
+            ['deleted_at', '=', null],
+            ['status', '=',  2]
+            ])->count();
+        
+        $recovered = Civilian::where([
+            ['deleted_at', '=', null],
+            ['status', '=',  4]
+            ])->count();   
+       
+        $death = Civilian::where([
+            ['deleted_at', '=', null],
+            ['status', '=',  5]
+            ])->count();   
+        
+
+        return response([
+            'status' => true, 
+            'confirmed' => $confirmed,
+            'suspected' => $suspected,
+            'negative' => $negative,
+            'active' => $active ,
+            'recovered' => $recovered,
+            'death' => $death,
         ]);
     }
 }

@@ -61,6 +61,7 @@ class CivilianController extends AppBaseController
         //Add GUID 
         $input['guid'] = (string) Str::uuid();
         $input['gender'] = $request['gender'] == 0 ? 'Male' : 'Female';
+        $input['full_name'] = $request['first_name']. ' ' . $request['last_name'];
         
         $civilian = $this->civilianRepository->create($input);
 
@@ -167,10 +168,82 @@ class CivilianController extends AppBaseController
     }
 
     public function status($id, Request $request){ 
-        Civilian::where([
+        $url = 'https://fcm.googleapis.com/fcm/send';
+        $user = Civilian::where([
             ['id', '=', $id],
             ['status', '<', $request['status']]
-        ])->update([
+        ]);
+        $message = '';
+         switch($request->status){ 
+            case 0:
+                $message = 'Keep safe, always stay at home';
+            break; 
+
+            case 1: 
+                $message = 'Possible contact with infected person';
+            break;
+
+            case 2: 
+                $message = 'Keep safe, always stay at home';
+            break;
+
+            case 3: 
+                $message = 'You are infected of COVID-19';
+            break;
+
+            case 4: 
+                $message = 'Stay healthy, always stay at home';
+            break; 
+            
+            default:
+                $message = '';
+        }
+
+        $serverKey = 'AAAAJJrq55s:APA91bGJL0WrPv1FSL8fQWJikq5RpqvGmRuYCnj6cPqPqCFvRumi9VVaPWG72S6s1fD-x8HRO4Lh7PBifEWylC-xiBLBWnlNdd8ffTSwggJcRJvRQ5GauR94JUuhmFmerIwzPEV3gCi-';
+
+        $token = $user->first()->token;
+
+        $data = [
+            "registration_ids" => [
+                $token
+            ],
+            "notification" => [
+                "title" => 'COVID-19 Status Update',
+                "body" => $message,  
+            ]
+        ];
+
+        $encodedData = json_encode($data);
+
+        $headers = [
+            'Authorization:key=' . $serverKey,
+            'Content-Type: application/json',
+        ];
+
+        $ch = curl_init();
+      
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+        // Disabling SSL Certificate support temporarly
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);        
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $encodedData);
+
+        // Execute post
+        $result = curl_exec($ch);
+
+        if ($result === FALSE) {
+            die('Curl failed: ' . curl_error($ch));
+        }        
+
+        // Close connection
+        curl_close($ch);
+        // Send push notification to mobile when suspected 
+        
+        $user->update([
             'status' => $request->status,
         ]);
 

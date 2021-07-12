@@ -45,7 +45,7 @@ class LogsEstablishmentDataTable extends DataTable
             ->parameters([
                 'dom'       => 'Bfrtip',
                 'stateSave' => true,
-                'order'     => [[0, 'desc']],
+                'order'     => [[2, 'desc']],
                 'buttons'   => [
                     ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
                     ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
@@ -69,7 +69,7 @@ class LogsEstablishmentDataTable extends DataTable
                 'title' =>  'Civilian Name'
             ]),  
            'host' => new \Yajra\DataTables\Html\Column([
-                'name' => 'host.full_name',
+                'name' => 'host.name',
                 'data' => 'host.name',
                 'title' =>  'Host Name'
             ]), 

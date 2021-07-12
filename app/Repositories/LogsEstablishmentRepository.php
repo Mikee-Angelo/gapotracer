@@ -8,7 +8,7 @@ use App\Repositories\BaseRepository;
 /**
  * Class LogsEstablishmentRepository
  * @package App\Repositories
- * @version July 7, 2021, 5:07 pm UTC
+ * @version July 8, 2021, 10:26 am UTC
 */
 
 class LogsEstablishmentRepository extends BaseRepository
@@ -17,8 +17,7 @@ class LogsEstablishmentRepository extends BaseRepository
      * @var array
      */
     protected $fieldSearchable = [
-        'user_id',
-        'host_id'
+        
     ];
 
     /**

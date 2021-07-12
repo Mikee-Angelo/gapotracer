@@ -44,11 +44,8 @@ class LogsEstablishment extends Model
     use HasFactory;
 
     public $table = 'logs_establishments';
-    
 
     protected $dates = ['deleted_at'];
-
-
 
     public $fillable = [
         'user_id',
@@ -71,7 +68,6 @@ class LogsEstablishment extends Model
      * @var array
      */
     public static $rules = [
-        'user_id' => 'required',
         'host_id' => 'required'
     ];
  

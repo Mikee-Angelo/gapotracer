@@ -8,7 +8,7 @@ use App\Repositories\BaseRepository;
 /**
  * Class LogsCivilianRepository
  * @package App\Repositories
- * @version July 7, 2021, 11:46 am UTC
+ * @version July 8, 2021, 6:23 am UTC
 */
 
 class LogsCivilianRepository extends BaseRepository
@@ -17,8 +17,7 @@ class LogsCivilianRepository extends BaseRepository
      * @var array
      */
     protected $fieldSearchable = [
-        'user_id',
-        'host_id'
+        
     ];
 
     /**
@@ -38,4 +37,5 @@ class LogsCivilianRepository extends BaseRepository
     {
         return LogsCivilian::class;
     }
+
 }

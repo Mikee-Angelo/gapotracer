@@ -17,23 +17,24 @@ class AuthController extends Controller
         $validated = $request->validated(); 
 
         $validated['password'] = bcrypt($request->password);
-
+        $validated['gender'] = $request['gender'] == 0 ? 'Male' : 'Female';
         $validated['full_name'] = $request->first_name. ' ' . $request->last_name;
 
         $validated['guid'] = (string) Str::uuid();
-
+        
         $user = Civilian::create($validated);
         
         $accessToken = $user->createToken('authToken')->accessToken;
 
-        return response([ 'user' => $user, 'access_token' => $accessToken]);
+        return response([ 'status' => true, 'user' => $user, 'access_token' => $accessToken]);
     }
 
     public function login(Request $request)
     {
         $loginData = $request->validate([
             'phone' => 'required',
-            'password' => 'required'
+            'password' => 'required',
+            'token' => 'required|string',
         ]);
 
         $user = Civilian::where(['phone' => $request->phone])->first(); 
@@ -47,10 +48,44 @@ class AuthController extends Controller
         if(!$pwd){ 
             return response(['message' => 'Invalid Credentials']);
         }
+        
+        $user->update(['token' => $request->token]);
 
         $accessToken = $user->createToken('authToken')->accessToken;
 
         return response(['user' => $user, 'access_token' => $accessToken]);
 
+    }
+
+    public function status(){ 
+        $status = Auth::user()->status;
+        $message = ''; 
+
+        switch($status){ 
+            case 0:
+                $message = 'Keep safe, always stay at home';
+            break; 
+
+            case 1: 
+                $message = 'Possible contact with infected person';
+            break;
+
+            case 2: 
+                $message = 'Keep safe, always stay at home';
+            break;
+
+            case 3: 
+                $message = 'You are infected of COVID-19';
+            break;
+
+            case 4: 
+                $message = 'Stay healthy, always stay at home';
+            break; 
+            
+            default:
+                $message = '';
+        }
+        
+        return response([ 'status' => true, 'tracer_status' =>  $status , 'message' => $message]);
     }
 }

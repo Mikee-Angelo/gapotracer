@@ -15,7 +15,7 @@
   crossorigin=""></script>
 
 <script type="text/javascript">
-    var mymap = L.map('map').setView([14.8386, 120.2842], 20);
+    var mymap = L.map('map').setView([14.8386, 120.2842], 13.77);
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWlrZWVhbmdlbG8iLCJhIjoiY2pob2R0OHFvMGExYTNkbXV4czEybXppdSJ9._4qk-kgx0V8EHvuSrYFuDA', {
         maxZoom: 18,

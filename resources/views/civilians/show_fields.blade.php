@@ -1,10 +1,10 @@
 <div class="mb-4 inline-block">
     <h4>Actions: </h4>
-    <button type="button" class="btn btn-warning " id="suspected" {{$civilian->status > 0 ? 'disabled' : ''}}>Suspected</button>
-    <button type="button" class="btn btn-primary ml-2 " id="negative" {{$civilian->status >= 2 ? 'disabled' : ''}}>Negative</button>
-    <button type="button" class="btn btn-danger ml-2 " id="positive" {{$civilian->status >= 2  ? 'disabled' : ''}}>Positive</button>
-    <button type="button" class="btn btn-success ml-2 " id="recovered" {{$civilian->status < 3 ? 'disabled' : ''}}>Recovered</button>
-    <button type="button" class="btn btn-dark ml-2 " id="death" {{$civilian->status <= 2 ? 'disabled' : ''}}>Death</button>
+    <button type="button" class="btn btn-warning " id="suspected" >Suspected</button>
+    <button type="button" class="btn btn-primary ml-2 " id="negative">Negative</button>
+    <button type="button" class="btn btn-danger ml-2 " id="positive" >Positive</button>
+    <button type="button" class="btn btn-success ml-2 " id="recovered" >Recovered</button>
+    <button type="button" class="btn btn-dark ml-2 " id="death">Death</button>
 </div>
 <hr  class="mb-4">
 

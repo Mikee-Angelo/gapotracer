@@ -31,6 +31,7 @@ class RegisterApiRequest extends FormRequest
             'gender' => "required|numeric", 
             "address" => "required",
             "password" => "required",
+            "token" => "required|string"
         ];
     }
 }

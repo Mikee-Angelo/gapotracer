@@ -70,7 +70,6 @@ class LogsCivilian extends Model
      * @var array
      */
     public static $rules = [
-        'user_id' => 'required',
         'host_id' => 'required'
     ];
 

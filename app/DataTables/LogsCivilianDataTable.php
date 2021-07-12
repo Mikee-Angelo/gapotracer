@@ -44,8 +44,8 @@ class LogsCivilianDataTable extends DataTable
             ->minifiedAjax()
             ->parameters([
                 'dom'       => 'Bfrtip',
-                'stateSave' => true,
-                'order'     => [[0, 'desc']],
+                'stateSave' => false,
+                'order'     => [[2, 'desc']],
                 'buttons'   => [
                    
                     ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],

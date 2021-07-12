@@ -1,0 +1,31 @@
+:root {
+    --primary: #00C853;
+}
+
+.sidebar {
+    background-color: var(--primary);
+}
+
+.sidebar .nav-item .active{
+    background-color: whitesmoke;
+}
+
+.sidebar .nav-item .active span {
+    color: var(--primary);
+}
+
+.sidebar .nav-item .nav-icon {
+   color: white ;
+}
+
+.sidebar .nav-item:hover .nav-icon {
+    color: white;
+}
+
+.sidebar .nav-item:hover .active {
+    color: red;
+}
+
+.sidebar .nav-icon:hover {
+    color: var(--primary);
+}

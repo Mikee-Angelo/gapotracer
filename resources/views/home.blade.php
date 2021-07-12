@@ -60,7 +60,7 @@
                 <div class="card">
                     <div class="card-body p-3 d-flex align-items-center">
                         <div>
-                            <div class="text-value text-primary">{{$recovered}}</div>
+                            <div class="text-value text-primary">{{count($recovered)}}</div>
                             <div class="text-muted text-uppercase font-weight-bold small">Recovered</div>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                 <div class="card">
                     <div class="card-body p-3 d-flex align-items-center">
                         <div>
-                            <div class="text-value text-primary">{{$confirmed}}</div>
+                            <div class="text-value text-primary">{{count($confirmed)}}</div>
                             <div class="text-muted text-uppercase font-weight-bold small">Confirmed Cases</div>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                 <div class="card">
                     <div class="card-body p-3 d-flex align-items-center">
                         <div>
-                            <div class="text-value text-primary">{{$suspected}}</div>
+                            <div class="text-value text-primary">{{count($suspected)}}</div>
                             <div class="text-muted text-uppercase font-weight-bold small">Suspected</div>
                         </div>
                     </div>
@@ -111,7 +111,7 @@
                 <div class="card">
                     <div class="card-body p-3 d-flex align-items-center">
                         <div>
-                            <div class="text-value text-primary">{{$active}}</div>
+                            <div class="text-value text-primary">{{count($active)}}</div>
                             <div class="text-muted text-uppercase font-weight-bold small">Active Cases</div>
                         </div>
                     </div>
@@ -128,7 +128,7 @@
                 <div class="card">
                     <div class="card-body p-3 d-flex align-items-center">
                         <div>
-                            <div class="text-value text-primary">{{$death}}</div>
+                            <div class="text-value text-primary">{{count($death)}}</div>
                             <div class="text-muted text-uppercase font-weight-bold small">Death</div>
                         </div>
                     </div>
