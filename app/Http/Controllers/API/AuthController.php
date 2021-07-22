@@ -9,6 +9,7 @@ use App\Models\Civilian;
 use App\Http\Requests\RegisterApiRequest;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -16,7 +17,8 @@ class AuthController extends Controller
     {
         $validated = $request->validated(); 
 
-        $validated['password'] = bcrypt($request->password);
+        $validated['password'] = Hash::make($request->password);
+
         $validated['gender'] = $request['gender'] == 0 ? 'Male' : 'Female';
         $validated['full_name'] = $request->first_name. ' ' . $request->last_name;
 
@@ -38,14 +40,13 @@ class AuthController extends Controller
         ]);
 
         $user = Civilian::where(['phone' => $request->phone])->first(); 
-
+        
         if(is_null($user)){ 
             return response(['message' => 'Invalid Credentials']);
         }
 
-        $pwd = password_verify($request->password, $user->password);
-        
-        if(!$pwd){ 
+        $hash = Hash::check($request->password, $user->password);
+        if(!$hash){ 
             return response(['message' => 'Invalid Credentials']);
         }
         
