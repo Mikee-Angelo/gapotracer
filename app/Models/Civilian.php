@@ -77,6 +77,7 @@ class Civilian extends Authenticatable
         'guid',
         'full_name',
         'token',
+        'password',
     ];
 
     /**
@@ -92,6 +93,7 @@ class Civilian extends Authenticatable
         'gender' => 'string',
         'address' => 'string',
         'token' => 'string',
+        'password' => 'string',
     ];
 
     /**
