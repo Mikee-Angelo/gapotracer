@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Establishment;
 use App\Models\Civilian;
 use App\Models\Vehicles;
+use App\Models\Records;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 class HomeController extends Controller
@@ -32,32 +33,32 @@ class HomeController extends Controller
         $civilian = Civilian::where('deleted_at', null);
         $vehicle = Vehicles::where('deleted_at', null)->get();
 
-        $suspected = Civilian::where([
+        $suspected = Records::where([
             ['deleted_at', '=', null],
             ['status', '=',  1]
             ]);
 
-        $confirmed = Civilian::where([
+        $confirmed = Records::where([
             ['deleted_at', '=', null],
-            ['status', '>',  2]
-            ]);
+            ['status', '=',  3],
+        ]);
             
-        $active = Civilian::where([
+        $active = Records::where([
             ['deleted_at', '=', null],
             ['status', '=',  3]
             ]);
         
-        $negative = Civilian::where([
+        $negative = Records::where([
             ['deleted_at', '=', null],
             ['status', '=',  2]
             ]);
         
-        $recovered = Civilian::where([
+        $recovered = Records::where([
             ['deleted_at', '=', null],
             ['status', '=',  4]
             ]);   
        
-        $death = Civilian::where([
+        $death = Records::where([
             ['deleted_at', '=', null],
             ['status', '=',  5]
             ]);   
@@ -248,8 +249,6 @@ class HomeController extends Controller
             'recovered' => $recovered,
             'death' => $death,
 
-
-            
         ]);
     }
 }
