@@ -15,6 +15,8 @@ use PDF;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Http\Request;
 use App\Models\Civilian;
+use App\Models\Records;
+use App\DataTables\RecordsDataTable;
 
 class CivilianController extends AppBaseController
 {
@@ -77,7 +79,7 @@ class CivilianController extends AppBaseController
      *
      * @return Response
      */
-    public function show($id)
+    public function show($id, RecordsDataTable $recordsDataTable)
     {
         $civilian = $this->civilianRepository->find($id);
 
@@ -86,8 +88,9 @@ class CivilianController extends AppBaseController
 
             return redirect(route('civilians.index'));
         }
+        // return view('civilians.show')->with('civilian', $civilian);
+        return $recordsDataTable->render('civilians.show', ['civilian' => $civilian]);
 
-        return view('civilians.show')->with('civilian', $civilian);
     }
 
     /**
@@ -169,11 +172,12 @@ class CivilianController extends AppBaseController
 
     public function status($id, Request $request){ 
         $url = 'https://fcm.googleapis.com/fcm/send';
+        $message = '';
+        $column = ''; 
         $user = Civilian::where([
             ['id', '=', $id],
-            ['status', '<', $request['status']]
         ]);
-        $message = '';
+
          switch($request->status){ 
             case 0:
                 $message = 'Keep safe, always stay at home';
@@ -181,22 +185,28 @@ class CivilianController extends AppBaseController
 
             case 1: 
                 $message = 'Possible contact with infected person';
+                $column = 'suspected_at';
             break;
 
             case 2: 
                 $message = 'Keep safe, always stay at home';
+                $column = 'negative_at';
+
             break;
 
             case 3: 
                 $message = 'You are infected of COVID-19';
+                $column = 'positive_at';
             break;
 
             case 4: 
                 $message = 'Stay healthy, always stay at home';
+                $column = 'recovered_at';
             break; 
             
             default:
                 $message = '';
+                $column = 'death_at';
         }
 
         $serverKey = 'AAAAJJrq55s:APA91bGJL0WrPv1FSL8fQWJikq5RpqvGmRuYCnj6cPqPqCFvRumi9VVaPWG72S6s1fD-x8HRO4Lh7PBifEWylC-xiBLBWnlNdd8ffTSwggJcRJvRQ5GauR94JUuhmFmerIwzPEV3gCi-';
@@ -242,9 +252,10 @@ class CivilianController extends AppBaseController
         // Close connection
         curl_close($ch);
         // Send push notification to mobile when suspected 
-        
-        $user->update([
-            'status' => $request->status,
+        $user->update(['status' => $request->status]);
+        Records::create([
+            'user_id' => $id,
+            'status' => $request->status
         ]);
 
         return response()->json(['success'=> true]);
