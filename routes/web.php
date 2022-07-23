@@ -30,6 +30,9 @@ Route::get('/civilians/print/{uuid}/', [App\Http\Controllers\CivilianController:
 Route::resource('establishments', App\Http\Controllers\EstablishmentController::class);
 Route::get('/establishments/print/{uuid}/', [App\Http\Controllers\EstablishmentController::class, 'print']);
 
+
+Route::resource('records', App\Http\Controllers\RecordsController::class);
+
 Route::resource('vehicles', App\Http\Controllers\VehiclesController::class);
 
 Route::resource('users', App\Http\Controllers\UserController::class)->middleware('auth');

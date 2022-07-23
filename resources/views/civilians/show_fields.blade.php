@@ -1,9 +1,9 @@
 <div class="mb-4 inline-block">
     <h4>Actions: </h4>
-    <button type="button" class="btn btn-warning " id="suspected" >Suspected</button>
-    <button type="button" class="btn btn-primary ml-2 " id="negative">Negative</button>
-    <button type="button" class="btn btn-danger ml-2 " id="positive" >Positive</button>
-    <button type="button" class="btn btn-success ml-2 " id="recovered" >Recovered</button>
+    <button type="button" class="btn btn-warning" id="suspected" {{ ($civilian->status == 0 || $civilian->status == 2 || $civilian->status == 4 )? '' : 'disabled'}} >Suspected</button>
+    <button type="button" class="btn btn-primary ml-2 " id="negative" {{ ($civilian->status  == 1 ) ? '' : 'disabled'}}>Negative</button>
+    <button type="button" class="btn btn-danger ml-2 " id="positive"{{ ($civilian->status  == 1 ) ? '' : 'disabled'}} >Positive</button>
+    <button type="button" class="btn btn-success ml-2 " id="recovered"{{ ($civilian->status  == 3 ) ? '' : 'disabled'}}  >Recovered</button>
     <button type="button" class="btn btn-dark ml-2 " id="death">Death</button>
 </div>
 <hr  class="mb-4">
@@ -21,6 +21,18 @@
 
         @if($civilian->status == 2)
             <span class="font-weight-bold ml-4">Negative</span>
+        @endif
+
+        @if($civilian->status == 3)
+            <span class="font-weight-bold ml-4">Positive</span>
+        @endif
+
+        @if($civilian->status == 4)
+            <span class="font-weight-bold ml-4">Recovered</span>
+        @endif
+
+        @if($civilian->status == 5)
+            <span class="font-weight-bold ml-4">Death</span>
         @endif
     </h5>
     <hr>
@@ -79,6 +91,8 @@
         </div>
     </div>
 </div>
+
+@include('records.table')
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>

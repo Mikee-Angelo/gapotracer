@@ -77,7 +77,7 @@
                 <div class="card">
                     <div class="card-body p-3 d-flex align-items-center">
                         <div>
-                            <div class="text-value text-primary">{{count($confirmed)}}</div>
+                            <div class="text-value text-primary">{{count($confirmed) }}</div>
                             <div class="text-muted text-uppercase font-weight-bold small">Confirmed Cases</div>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                 <div class="card">
                     <div class="card-body p-3 d-flex align-items-center">
                         <div>
-                            <div class="text-value text-primary">{{count($suspected)}}</div>
+                            <div class="text-value text-primary">{{(count($negative) + count($active)) - count($suspected) }}</div>
                             <div class="text-muted text-uppercase font-weight-bold small">Suspected</div>
                         </div>
                     </div>
@@ -111,7 +111,7 @@
                 <div class="card">
                     <div class="card-body p-3 d-flex align-items-center">
                         <div>
-                            <div class="text-value text-primary">{{count($active)}}</div>
+                            <div class="text-value text-primary">{{count($active) - (count($recovered) + count($death)) }}</div>
                             <div class="text-muted text-uppercase font-weight-bold small">Active Cases</div>
                         </div>
                     </div>
@@ -177,21 +177,10 @@ let getNumberOfDays = (year, month) => {
         datasets: [{
             label: '# of Active',
             data: {!! json_encode($reports['monthly']['active']) !!},
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
+
             borderColor: [
                 'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
+              
             ],
             borderWidth: 2
         },
@@ -199,20 +188,11 @@ let getNumberOfDays = (year, month) => {
             label: '# of Suspected',
             data: {!! json_encode($reports['monthly']['suspected']) !!},
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                
+                'rgba(255, 99, 132, 1)',
             ],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
             ],
             borderWidth: 2
         },
@@ -220,41 +200,23 @@ let getNumberOfDays = (year, month) => {
             label: '# of Recovered',
             data: {!! json_encode($reports['monthly']['recovered']) !!},
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                'rgba(54, 162, 235, 1)',
             ],
             borderColor: [
-                'rgba(255, 99, 132, 1)',
                 'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
             ],
-            borderWidth: 2
+            borderWidth: 2,
         },
         {
             label: '# of Death',
             data: {!! json_encode($reports['monthly']['death']) !!},
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                'rgba(255, 206, 86, 1)',
+
             ],
             borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
                 'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
+
             ],
             borderWidth: 2
         }
@@ -281,20 +243,11 @@ new Chart(daily, {
             label: '# of Active',
             data: {!! json_encode($reports['daily']['active']) !!},
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                'rgba(255, 99, 132, 1)',
+
             ],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
             ],
             borderWidth: 2
         },
@@ -302,20 +255,11 @@ new Chart(daily, {
             label: '# of Suspected',
             data: {!! json_encode($reports['daily']['suspected']) !!},
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                'rgba(54, 162, 235, 1)',
             ],
             borderColor: [
-                'rgba(255, 99, 132, 1)',
+               
                 'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
             ],
             borderWidth: 2
         },
@@ -323,20 +267,11 @@ new Chart(daily, {
             label: '# of Recovered',
             data: {!! json_encode($reports['daily']['recovered']) !!},
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                'rgba(255, 206, 86, 1)',
             ],
             borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
                 'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
+
             ],
             borderWidth: 2
         },
@@ -344,20 +279,12 @@ new Chart(daily, {
             label: '# of Death',
             data: {!! json_encode($reports['daily']['death']) !!},
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                'rgba(75, 192, 192, 1)',
+
             ],
             borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
                 'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
+
             ],
             borderWidth: 2
         }

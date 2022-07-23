@@ -66,3 +66,10 @@
         <span >Manage Users</span>
     </a>
 </li>
+
+<li class="nav-item {{ Request::is('records*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('records.index') }}">
+        <i class="nav-icon icon-cursor"></i>
+        <span>Records</span>
+    </a>
+</li>
